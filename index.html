@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/CSS" href="CSS.css">
+    <title>My trip to Pitalkhora</title>
+</head>
+<body>
+    <div class="main-tabel">
+        <header>
+            <h3 class="title">~*~ LOST IN PITALKHORA ~*~</h3>
+            <div class="marquee-container">
+                <div class="marquee-text">
+                    Wlecome to my homepage!!! *** Upadates are underway**
+                </div>
+            </div>
+        </header>
+
+        <!-- now i will add content -->
+        <hr>
+        <div class="main-content">
+            <img src="hello-shy.gif">
+            <br>
+            <h3 class="button" style="color: black;"><b>MY TRAVEL ENTRY</b></h3>
+            <p>
+                <font colour="cyan">Hello my dear friend</font><br>
+                <p>Hi guys I am a curious person about the past and life of that time.<br>
+                Due to such curiosity i learnt about a place called Pitalkhora!!<br>
+                So in my winter sem break i decided to visit it with my friend and explore<br>
+                The place was truly amazing in eyes. When i first saw it while going down the stairs,<br>
+                I was thrilled to seee what secrects that place holds!!!!<br>
+                </p>
+            </p>
+            <hr>
+            <h3 class="button" style="color: black;"><b>~*~ GALLERY ~*~</b></h3>
+            <P><i>Click on thymbnail to enlarge</i></P>
+            <div class="gallery">
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <!-- Now the images and video -->
+                    <img src="Painting Idea Acrylic.jpg">
+                    <div style="color: black;">Image 1</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <!-- Now the images and video -->
+                    <img src="Painting Idea Acrylic.jpg">
+                    <div style="color: black;">Image 2</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <!-- Now the images and video -->
+                    <img src="Painting Idea Acrylic.jpg">
+                    <div style="color: black;">Image 3</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <!-- Now the images and video -->
+                    <img src="Painting Idea Acrylic.jpg">
+                    <div style="color: black;">Image 4</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <!-- Now the images and video -->
+                    <img src="Painting Idea Acrylic.jpg">
+                    <div style="color: black;">Image 5</div>
+                </div>
+                <div class="gallery-item" onclick="openLightbox(this)">
+                    <!-- Now the images and video -->
+                    <img src="Painting Idea Acrylic.jpg">
+                    <div style="color: black;">Image 6</div>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="button" style="color: black;">LINKS</h2>
+            <p>
+                <a href="#">[Email Me]</a> | 
+                <a href="#">[My Friends]</a> | 
+                <a href="#">[Web Ring]</a>
+            </p>
+        <hr>
+        <footer>
+            This site was made on Jan @ 2026 <br>
+            Last updated : 17/01/26<br>
+            Thanks for visiting &#59;&#41;
+        </footer>
+    </div>
+
+    <!-- lightbox ui -->
+     <div class="lightbox" id="lightbox" >
+        <span class="close-btn" onclick="closeLightbox()">[X] CLOSE</span>
+        <img id="lightbox-img" src="" alt="Full-screen">
+     </div>
+    <script>
+        const lightbox =document.getElementById('lightbox');
+        const lightboximg=document.getElementById('lightbox-img');
+
+        function openLightbox(element){
+            const img=element.querySelector('img');
+            lightboximg.src=img.src;
+            lightbox.style.display = 'flex';
+        }
+
+        // to close the lightbox on click
+        function closeLightbox(){
+            lightbox.style.display='none';
+        }
+
+        lightbox.addEventListener('click' , e =>{
+            if(e.target !== e.currentTarget) return;
+            closeLightbox();
+        })
+
+        // now adding event listen to close the lightbox
+        document.addEventListener('keydown', function(event){
+            if(event.key == "Escape"){
+                closeLightbox();
+            }
+        });
+    </script>
+
+</body>    
+</html>
