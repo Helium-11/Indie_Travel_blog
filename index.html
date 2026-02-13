@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/CSS" href="style.css">
     <title>My trip to Pitalkhora</title>
 </head>
+
 <body>
     <div class="main-tabel">
         <header>
@@ -24,14 +26,14 @@
             <br>
             <h3 class="button" style="color: black;"><b>MY TRAVEL ENTRY</b></h3>
             <p>
-                <font colour="cyan">Hello my dear friend</font><br>
-                <p>Hi guys I am a curious person about the past and life of that time.<br>
+                <span style="color: cyan;">Hello my dear friend</span><br>
+                Hi guys I am a curious person about the past and life of that time.<br>
                 Due to such curiosity i learnt about a place called Pitalkhora!!<br>
                 So in my winter sem break i decided to visit it with my friend and explore<br>
                 The place was truly amazing in eyes. When i first saw it while going down the stairs,<br>
                 I was thrilled to seee what secrects that place holds!!!!<br>
-                </p>
             </p>
+
             <hr>
             <h3 class="button" style="color: black;"><b>~*~ GALLERY ~*~</b></h3>
             <P><i>Click on thymbnail to enlarge</i></P>
@@ -68,14 +70,27 @@
                 </div>
             </div>
         </div>
-        
+
         <h2 class="button" style="color: black;">LINKS</h2>
-            <p>
-                <a href="#">[Email Me]</a> | 
-                <a href="#">[My Friends]</a> | 
-                <a href="#">[Web Ring]</a>
-            </p>
+        <p>
+            <a href="#">[Email Me]</a> |
+            <a href="#">[My Friends]</a> |
+            <a href="#">[Web Ring]</a>
+        </p>
         <hr>
+        <div class="guestbook-section">
+            <h3 style="color: #00FF00; text-shadow: 0 0 5px #00FF00;">~*~ VISITOR LOG ~*~</h3>
+
+            <div class="guestbook-form">
+                <input type="text" id="nameInput" placeholder="CODENAME">
+                <input type="text" id="msgInput" placeholder="TRANSMISSION DATA">
+                <button id="uploadBtn" type="button">UPLOAD</button>
+            </div>
+
+            <div id="messages-list">
+                <p style="color: gray;">Loading transmissions...</p>
+            </div>
+        </div>
         <footer>
             This site was made on Jan @ 2026 <br>
             Last updated : 17/01/26<br>
@@ -84,38 +99,108 @@
     </div>
 
     <!-- lightbox ui -->
-     <div class="lightbox" id="lightbox" >
+    <div class="lightbox" id="lightbox">
         <span class="close-btn" onclick="closeLightbox()">[X] CLOSE</span>
         <img id="lightbox-img" src="" alt="Full-screen">
-     </div>
+    </div>
     <script>
-        const lightbox =document.getElementById('lightbox');
-        const lightboximg=document.getElementById('lightbox-img');
+    const API_URL = "http://localhost:5000/api";
 
-        function openLightbox(element){
-            const img=element.querySelector('img');
-            lightboximg.src=img.src;
-            lightbox.style.display = 'flex';
+    document.addEventListener("DOMContentLoaded", () => {
+        msgInput.addEventListener("keypress", (event) => {
+    if (event.key === "Enter") {
+        postMessage();
+    }
+});
+        // 1. Attach the click event properly
+        const uploadBtn = document.getElementById('uploadBtn');
+        if (uploadBtn) {
+            uploadBtn.addEventListener('click', postMessage);
         }
 
-        // to close the lightbox on click
-        function closeLightbox(){
-            lightbox.style.display='none';
-        }
+        // 2. Load messages only ONCE when the page is ready
+        loadMessages();
+        
+        // Removed the extra loadMessages() call from the bottom
+    });
 
-        lightbox.addEventListener('click' , e =>{
-            if(e.target !== e.currentTarget) return;
+    const lightbox = document.getElementById('lightbox');
+    const lightboximg = document.getElementById('lightbox-img');
+
+    function openLightbox(element) {
+        const img = element.querySelector('img');
+        lightboximg.src = img.src;
+        lightbox.style.display = 'flex';
+    }
+
+    function closeLightbox() {
+        lightbox.style.display = 'none';
+    }
+
+    // Lightbox and keyboard logic...
+    lightbox.addEventListener('click', e => {
+        if (e.target !== e.currentTarget) return;
+        closeLightbox();
+    });
+
+    document.addEventListener('keydown', function (event) {
+        if (event.key == "Escape") {
             closeLightbox();
-        })
+        }
+    });
 
-        // now adding event listen to close the lightbox
-        document.addEventListener('keydown', function(event){
-            if(event.key == "Escape"){
-                closeLightbox();
+    async function loadMessages() {
+        try {
+            const response = await fetch(`${API_URL}/messages`);
+            const messages = await response.json();
+            const list = document.getElementById('messages-list');
+            list.innerHTML = ""; 
+
+            if (messages.length === 0) {
+                list.innerHTML = "<p>No transmissions yet. Be the first.</p>";
+                return;
             }
-        });
-    </script>
 
-</body>    
+            messages.forEach(msg => {
+                const entry = document.createElement('div');
+                entry.className = "msg-entry";
+                entry.innerHTML = `<span style="color: cyan;">[${msg[0]}]</span>: ${msg[1]}`;
+                list.appendChild(entry);
+            });
+        } catch (error) {
+            console.error("Error:", error);
+            document.getElementById('messages-list').innerHTML =
+                "<p style='color:red'>ERROR: SERVER OFFLINE. RUN 'python app.py'</p>";
+        }
+    }
 
+    async function postMessage() {
+        const nameInput = document.getElementById('nameInput');
+        const msgInput = document.getElementById('msgInput');
+
+        const name = nameInput.value.trim(); // Added .trim() to prevent space-only posts
+        const msg = msgInput.value.trim();
+
+        if (!name || !msg) {
+            alert("DEBUG: Who called me? " + postMessage.caller);
+            return;
+        }
+
+        try {
+            await fetch(`${API_URL}/sign`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: name, message: msg })
+            });
+
+            nameInput.value = "";
+            msgInput.value = "";
+            loadMessages();
+        } catch (error) {
+            alert("Could not connect to server!");
+        }
+    }
+</script>
+
+</body>
 </html>
