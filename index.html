@@ -39,32 +39,26 @@
             <P><i>Click on thymbnail to enlarge</i></P>
             <div class="gallery">
                 <div class="gallery-item" onclick="openLightbox(this)">
-                    <!-- Now the images and video -->
                     <img src="Painting Idea Acrylic.jpg">
                     <div style="color: black;">Image 1</div>
                 </div>
                 <div class="gallery-item" onclick="openLightbox(this)">
-                    <!-- Now the images and video -->
                     <img src="Painting Idea Acrylic.jpg">
                     <div style="color: black;">Image 2</div>
                 </div>
                 <div class="gallery-item" onclick="openLightbox(this)">
-                    <!-- Now the images and video -->
                     <img src="Painting Idea Acrylic.jpg">
                     <div style="color: black;">Image 3</div>
                 </div>
                 <div class="gallery-item" onclick="openLightbox(this)">
-                    <!-- Now the images and video -->
                     <img src="Painting Idea Acrylic.jpg">
                     <div style="color: black;">Image 4</div>
                 </div>
                 <div class="gallery-item" onclick="openLightbox(this)">
-                    <!-- Now the images and video -->
                     <img src="Painting Idea Acrylic.jpg">
                     <div style="color: black;">Image 5</div>
                 </div>
                 <div class="gallery-item" onclick="openLightbox(this)">
-                    <!-- Now the images and video -->
                     <img src="Painting Idea Acrylic.jpg">
                     <div style="color: black;">Image 6</div>
                 </div>
@@ -112,16 +106,15 @@
         postMessage();
     }
 });
-        // 1. Attach the click event properly
+        // click event to postmsg
         const uploadBtn = document.getElementById('uploadBtn');
         if (uploadBtn) {
             uploadBtn.addEventListener('click', postMessage);
         }
 
-        // 2. Load messages only ONCE when the page is ready
+        // to load the msg
         loadMessages();
         
-        // Removed the extra loadMessages() call from the bottom
     });
 
     const lightbox = document.getElementById('lightbox');
@@ -137,7 +130,7 @@
         lightbox.style.display = 'none';
     }
 
-    // Lightbox and keyboard logic...
+    // now to close lightbox
     lightbox.addEventListener('click', e => {
         if (e.target !== e.currentTarget) return;
         closeLightbox();
@@ -178,7 +171,7 @@
         const nameInput = document.getElementById('nameInput');
         const msgInput = document.getElementById('msgInput');
 
-        const name = nameInput.value.trim(); // Added .trim() to prevent space-only posts
+        const name = nameInput.value.trim(); 
         const msg = msgInput.value.trim();
 
         if (!name || !msg) {
@@ -204,5 +197,6 @@
 
 </body>
 </html>
+
 
 
