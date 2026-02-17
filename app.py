@@ -11,7 +11,7 @@ CORS(app)
 def init_db():
     conn = sqlite3.connect('guestbook.db')
     c = conn.cursor()
-    # Create table if it doesn't exist
+    # making the tabel
     c.execute('''CREATE TABLE IF NOT EXISTS messages 
                  (id INTEGER PRIMARY KEY AUTOINCREMENT, 
                   name TEXT, 
@@ -21,9 +21,9 @@ def init_db():
 
 init_db()
 
-# --- API Routes ---
+# Now API 
 
-# 1. READ: Get all messages
+# first i will get the msgs
 @app.route('/api/messages', methods=['GET'])
 def get_messages():
     try:
@@ -37,7 +37,7 @@ def get_messages():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-# 2. WRITE: Add a new message
+# write - adding a new msg
 @app.route('/api/sign', methods=['POST'])
 def sign_guestbook():
     try:
@@ -45,6 +45,7 @@ def sign_guestbook():
         name = data.get('name')
         message = data.get('message')
 
+        #if name or msg is missing show error
         if not name or not message:
             return jsonify({"error": "Missing name or message"}), 400
 
@@ -58,5 +59,6 @@ def sign_guestbook():
         return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    print("🚀 Server is running on http://localhost:5000")
+    print("!!!! Server is running on http://localhost:5000")
+
     app.run(debug=True, port=5000)
