@@ -64,7 +64,7 @@ body::after {
 
 
 .gallery-item img{
-    height: auto;
+    height: 200px;
     width: 150px;
     border: 3px inset whitesmoke;
 
@@ -236,4 +236,5 @@ a:hover{
     padding: 5px 0;
     color: #ccc;
 }
+
 
