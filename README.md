@@ -20,4 +20,4 @@ python app.py
 I used pythonanywhere to run the server.
 
 ## Here is the link
-[site](https://helium-11.github.io/Indie_Travel_blog/)
+[site](https://indie-travel-blog.vercel.app/)
