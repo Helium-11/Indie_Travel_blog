@@ -15,7 +15,7 @@ Hey , welcome to my travel blog with an touch of retro nostalgia. A full stack s
 + Flask-CORS: Handling Cross-Origin Resource Sharing.
 + SQLite: Serverless database for the guestbook.
 
-## The to run server use-
+## To run server use-
 python app.py  
 I used pythonanywhere to run the server.
 
